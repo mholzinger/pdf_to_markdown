@@ -1,53 +1,59 @@
+
 # PDF to Markdown Converter
 
 ## Overview
 
-This project provides a tool to convert PDF files into Markdown format, with a focus on optimizing the input for Large Language Models (LLMs). The main goal is to prevent unnecessary token consumption when feeding PDF files to LLM agents, especially those that treat PDF pages as images, which can be highly inefficient and costly.
-
-## Motivation
-
-Many LLM-based applications process PDF files by converting each page into an image, resulting in excessive token usage and increased costs. This project addresses this issue by extracting the textual content from PDFs and converting it into clean, structured Markdown. This approach ensures that only meaningful text is sent to the LLM, significantly reducing token usage and improving processing efficiency.
+This project is designed for enterprise environments, supporting multi-host deployments and importable as a Python package. It converts PDF files to Markdown, optimizing input for LLMs and reducing token usage by avoiding image-based PDF processing.
 
 ## Features
 
-- Extracts text from PDF files and converts it to Markdown
-- Preserves document structure (headings, paragraphs, lists, etc.) where possible
-- Reduces token usage by avoiding image-based PDF processing
-- Simple command-line interface for ease of use
+- Enterprise-ready, importable Python package
+- Multi-host and scalable architecture
+- Extracts and converts PDF text to Markdown
+- Reduces token usage for LLMs
+- Command-line and API usage
+
+## Installation
+
+Install via pip (after packaging):
+
+```bash
+pip install pdf_to_markdown
+```
+
+Or clone and install locally:
+
+```bash
+pip install .
+```
 
 ## Usage
 
-1. Place your PDF file in the project directory.
-2. Run the main script to convert the PDF to Markdown:
+### As a Python Package
 
-   ```bash
-   python main.py input.pdf output.md
-   ```
+```python
+from pdf_to_markdown.converter import PDFToMarkdownConverter
 
-   Replace `input.pdf` with the name of your PDF file and `output.md` with the desired output Markdown file name.
+converter = PDFToMarkdownConverter(output_dir="/path/to/output")
+markdown = converter.convert("input.pdf", "output.md")
+```
+
+### Command Line
+
+```bash
+python main.py input.pdf output.md
+```
 
 ## Requirements
 
 - Python 3.7+
-- [pdfminer.six](https://github.com/pdfminer/pdfminer.six) or similar library for PDF text extraction
+- pdfminer.six
 
-Install dependencies with:
+## Enterprise & Multi-Host Support
 
-```bash
-pip install pdfminer.six
-```
-
-## Example
-
-Given a PDF file `sample.pdf`, convert it to Markdown:
-
-```bash
-python main.py sample.pdf sample.md
-```
-
-## Why Not Images?
-
-LLMs process text more efficiently than images. When PDFs are treated as images, every page is converted to a large block of tokens, quickly exhausting token limits and increasing costs. By extracting and structuring the text, this tool ensures that only the relevant content is processed, making LLM-based workflows more scalable and affordable.
+- Designed for integration with distributed systems
+- Can be deployed across multiple hosts
+- Suitable for batch processing and automation
 
 ## License
 
@@ -55,4 +61,4 @@ MIT License
 
 ## Contributing
 
-Contributions are welcome! Please open issues or submit pull requests to help improve this project.
+Contributions are welcome! Please open issues or submit pull requests.
